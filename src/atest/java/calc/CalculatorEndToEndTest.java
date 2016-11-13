@@ -2,7 +2,6 @@ package calc;
 
 import org.junit.After;
 import org.junit.Before;
-import org.junit.Ignore;
 import org.junit.Test;
 
 import java.io.BufferedReader;
@@ -41,7 +40,7 @@ public class CalculatorEndToEndTest {
         assertThat(result, is("123"));
     }
 
-    @Test@Ignore
+    @Test
     public void calculatorPrintsSumOfTwoNumbers() throws Exception {
         calcInput.write("345+23");
         clickEnterButton();

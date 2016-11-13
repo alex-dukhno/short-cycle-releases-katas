@@ -24,10 +24,11 @@ plugins {
 apply plugin: 'java'
 apply plugin: 'idea'
 
-sourceCompatibility=1.8
-targetCompatibility=1.8
+sourceCompatibility = 1.8
+targetCompatibility = 1.8
 
-group='short-cycle-releases'
+group = 'short-cycle-releases'
+version = '1.0-SNAPSHOT'
 
 jacocoTestReport {
     reports {
@@ -47,4 +48,25 @@ repositories {
 
 dependencies {
     testCompile "junit:junit:4.12"
+}
+
+configurations {
+    atestCompile.extendsFrom testCompile
+    atestRuntime.extendsFrom testRuntime
+}
+
+sourceSets {
+    atest {
+        compileClasspath += main.output
+        runtimeClasspath += main.output
+    }
+}
+
+task atest(type: Test) {
+    testClassesDir = sourceSets.atest.output.classesDir
+    classpath = sourceSets.atest.runtimeClasspath
+}
+
+check {
+    dependsOn(atest)
 }

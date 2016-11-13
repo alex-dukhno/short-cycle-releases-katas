@@ -2,28 +2,35 @@ package calc;
 
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
+import java.io.IOException;
+import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.io.OutputStream;
 import java.io.OutputStreamWriter;
 
 public class Calculator {
 
-    public static void main(String[] args) throws Exception {
-        BufferedWriter out = new BufferedWriter(new OutputStreamWriter(System.out));
-        BufferedReader in = new BufferedReader(new InputStreamReader(System.in));
-        Calculator calculator = new Calculator();
-        out.write(String.valueOf(calculator.evaluate(in.readLine())));
-        out.flush();
+    private final BufferedReader in;
+    private final BufferedWriter out;
+
+    public Calculator(InputStream inputStream, OutputStream outputStream) {
+        in = new BufferedReader(new InputStreamReader(inputStream));
+        out = new BufferedWriter(new OutputStreamWriter(outputStream));
     }
 
-    public int evaluate(String expression) {
-        int index = 0;
-        while (index < expression.length() && expression.charAt(index) != '+') {
-            index += 1;
-        }
-        int result = Integer.parseInt(expression.substring(0, index));
-        if (index < expression.length()) {
-            result += Integer.parseInt(expression.substring(index + 1));
-        }
-        return result;
+    public static void main(String[] args) throws Exception {
+        Calculator calculator = new Calculator(System.in, System.out);
+        Evaluator evaluator = new Evaluator();
+        int result = evaluator.evaluate(calculator.readExpression());
+        calculator.printsResult(String.valueOf(result));
+    }
+
+    public String readExpression() throws IOException {
+        return in.readLine();
+    }
+
+    public void printsResult(String evaluatedResult) throws IOException {
+        out.write(evaluatedResult + "\n");
+        out.flush();
     }
 }

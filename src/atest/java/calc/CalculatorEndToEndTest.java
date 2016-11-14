@@ -58,6 +58,15 @@ public class CalculatorEndToEndTest {
         assertThat(result, is("312"));
     }
 
+    @Test
+    public void calculatorPrintsProductOfTwoNumbers() throws Exception {
+        calcInput.write("43*3");
+        clickEnterButton();
+
+        String result = calcOutput.readLine();
+        assertThat(result, is("129"));
+    }
+
     private void clickEnterButton() throws IOException {
         calcInput.write("\n");
         calcInput.flush();

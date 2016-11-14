@@ -30,4 +30,9 @@ public class EvaluatorTest {
     public void evaluatesSubtraction() throws Exception {
         assertThat(evaluator.evaluate("45-23"), is(22));
     }
+
+    @Test
+    public void evaluatesMultiplication() throws Exception {
+        assertThat(evaluator.evaluate("23*4"), is(92));
+    }
 }

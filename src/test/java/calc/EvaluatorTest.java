@@ -25,4 +25,9 @@ public class EvaluatorTest {
     public void evaluatesSum() throws Exception {
         assertThat(evaluator.evaluate("23+21"), is(44));
     }
+
+    @Test
+    public void evaluatesSubtraction() throws Exception {
+        assertThat(evaluator.evaluate("45-23"), is(22));
+    }
 }

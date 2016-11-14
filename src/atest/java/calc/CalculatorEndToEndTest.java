@@ -49,6 +49,15 @@ public class CalculatorEndToEndTest {
         assertThat(result, is("368"));
     }
 
+    @Test
+    public void calculatorPrintsEvaluatedSubtractionOfTwoNumbers() throws Exception {
+        calcInput.write("435-123");
+        clickEnterButton();
+
+        String result = calcOutput.readLine();
+        assertThat(result, is("312"));
+    }
+
     private void clickEnterButton() throws IOException {
         calcInput.write("\n");
         calcInput.flush();

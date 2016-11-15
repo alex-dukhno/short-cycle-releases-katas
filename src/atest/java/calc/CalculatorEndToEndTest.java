@@ -67,6 +67,15 @@ public class CalculatorEndToEndTest {
         assertThat(result, is("129"));
     }
 
+    @Test
+    public void calculatorPrintsDivisionOfTwoNumbers() throws Exception {
+        calcInput.write("56/8");
+        clickEnterButton();
+
+        String calculationResult = calcOutput.readLine();
+        assertThat(calculationResult, is("7"));
+    }
+
     private void clickEnterButton() throws IOException {
         calcInput.write("\n");
         calcInput.flush();

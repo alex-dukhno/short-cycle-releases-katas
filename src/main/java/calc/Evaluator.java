@@ -12,6 +12,7 @@ public class Evaluator {
         operationSet.add('+');
         operationSet.add('-');
         operationSet.add('*');
+        operationSet.add('/');
     }
 
     public int evaluate(String expression) {
@@ -23,8 +24,10 @@ public class Evaluator {
                 result += parseNextArgument(expression, index + 1);
             } else if (sign == '-') {
                 result -= parseNextArgument(expression, index + 1);
-            } else {
+            } else if (sign == '*') {
                 result *= parseNextArgument(expression, index + 1);
+            } else {
+                result /= parseNextArgument(expression, index + 1);
             }
         }
         return result;

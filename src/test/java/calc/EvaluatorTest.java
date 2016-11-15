@@ -35,4 +35,9 @@ public class EvaluatorTest {
     public void evaluatesMultiplication() throws Exception {
         assertThat(evaluator.evaluate("23*4"), is(92));
     }
+
+    @Test
+    public void evaluatesDivision() throws Exception {
+        assertThat(evaluator.evaluate("32/4"), is(8));
+    }
 }

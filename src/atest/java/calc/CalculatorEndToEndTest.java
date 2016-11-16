@@ -79,6 +79,14 @@ public class CalculatorEndToEndTest {
         assertThat(resultOfCalculation(), is("4.26"));
     }
 
+    @Test
+    public void calculatorEvaluatesExpressionWithNumbersOfBasicOperations() throws Exception {
+        enterMathExpression("5-10+2*3-25/5");
+        clickEnterButton();
+
+        assertThat(resultOfCalculation(), is("-4"));
+    }
+
     private String resultOfCalculation() throws IOException {
         return calcOutput.readLine();
     }

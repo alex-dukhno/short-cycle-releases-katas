@@ -40,4 +40,10 @@ public class EvaluatorTest {
     public void evaluatesDivision() throws Exception {
         assertThat(evaluator.evaluate("32/4"), is(8.0));
     }
+
+    @Test
+    public void evaluatesMultipleOperations() throws Exception {
+        assertThat(evaluator.evaluate("32/8+10-6*2+23"), is(25.0));
+    }
+
 }

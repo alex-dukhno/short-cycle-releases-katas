@@ -33,47 +33,58 @@ public class CalculatorEndToEndTest {
 
     @Test
     public void calculatorPrintsNumberThatUserEntered() throws Exception {
-        calcInput.write("123");
+        enterMathExpression("123");
         clickEnterButton();
 
-        String result = calcOutput.readLine();
-        assertThat(result, is("123"));
+        assertThat(resultOfCalculation(), is("123"));
     }
 
     @Test
     public void calculatorPrintsSumOfTwoNumbers() throws Exception {
-        calcInput.write("345+23");
+        enterMathExpression("345+23");
         clickEnterButton();
 
-        String result = calcOutput.readLine();
-        assertThat(result, is("368"));
+        assertThat(resultOfCalculation(), is("368"));
     }
 
     @Test
     public void calculatorPrintsEvaluatedSubtractionOfTwoNumbers() throws Exception {
-        calcInput.write("435-123");
+        enterMathExpression("435-123");
         clickEnterButton();
 
-        String result = calcOutput.readLine();
-        assertThat(result, is("312"));
+        assertThat(resultOfCalculation(), is("312"));
     }
 
     @Test
     public void calculatorPrintsProductOfTwoNumbers() throws Exception {
-        calcInput.write("43*3");
+        enterMathExpression("43*3");
         clickEnterButton();
 
-        String result = calcOutput.readLine();
-        assertThat(result, is("129"));
+        assertThat(resultOfCalculation(), is("129"));
     }
 
     @Test
     public void calculatorPrintsDivisionOfTwoNumbers() throws Exception {
-        calcInput.write("56/8");
+        enterMathExpression("56/8");
         clickEnterButton();
 
-        String calculationResult = calcOutput.readLine();
-        assertThat(calculationResult, is("7"));
+        assertThat(resultOfCalculation(), is("7"));
+    }
+
+    @Test
+    public void calculatorEvaluatesExpressionWithFloatingNumbers() throws Exception {
+        enterMathExpression("2.13*2");
+        clickEnterButton();
+
+        assertThat(resultOfCalculation(), is("4.26"));
+    }
+
+    private String resultOfCalculation() throws IOException {
+        return calcOutput.readLine();
+    }
+
+    private void enterMathExpression(String expression) throws IOException {
+        calcInput.write(expression);
     }
 
     private void clickEnterButton() throws IOException {

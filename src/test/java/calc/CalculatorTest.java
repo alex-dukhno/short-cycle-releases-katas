@@ -46,8 +46,32 @@ public class CalculatorTest {
     @Test
     public void calculatorWritesToOutput() throws Exception {
         BufferedReader reader = new BufferedReader(new InputStreamReader(in));
-        calculator.printsResult("evaluated-result");
+        calculator.printsResult(9.01);
 
-        assertThat(reader.readLine(), is("evaluated-result"));
+        assertThat(reader.readLine(), is("9.01"));
+    }
+    
+    @Test
+    public void calculatorDoesNotPrintFraction_whenItIsZero() throws Exception {
+        BufferedReader reader = new BufferedReader(new InputStreamReader(in));
+        calculator.printsResult(10);
+
+        assertThat(reader.readLine(), is("10"));
+    }
+
+    @Test
+    public void calculatorPrintsVeryBigNumber() throws Exception {
+        BufferedReader reader = new BufferedReader(new InputStreamReader(in));
+        calculator.printsResult(1_000_000_000);
+
+        assertThat(reader.readLine(), is("1000000000"));
+    }
+
+    @Test
+    public void calculatorPrintsVerySmallFraction() throws Exception {
+        BufferedReader reader = new BufferedReader(new InputStreamReader(in));
+        calculator.printsResult(1.000_000_000_000_000_2);
+
+        assertThat(reader.readLine(), is("1.0000000000000002"));
     }
 }

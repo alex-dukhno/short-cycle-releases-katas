@@ -17,27 +17,27 @@ public class EvaluatorTest {
 
     @Test
     public void evaluatesNumber() throws Exception {
-        assertThat(evaluator.evaluate("100"), is(100));
-        assertThat(evaluator.evaluate("10"), is(10));
+        assertThat(evaluator.evaluate("100"), is(100.0));
+        assertThat(evaluator.evaluate("10.0"), is(10.0));
     }
 
     @Test
     public void evaluatesSum() throws Exception {
-        assertThat(evaluator.evaluate("23+21"), is(44));
+        assertThat(evaluator.evaluate("23+21"), is(44.0));
     }
 
     @Test
     public void evaluatesSubtraction() throws Exception {
-        assertThat(evaluator.evaluate("45-23"), is(22));
+        assertThat(evaluator.evaluate("45-23"), is(22.0));
     }
 
     @Test
     public void evaluatesMultiplication() throws Exception {
-        assertThat(evaluator.evaluate("23*4"), is(92));
+        assertThat(evaluator.evaluate("23*4"), is(92.0));
     }
 
     @Test
     public void evaluatesDivision() throws Exception {
-        assertThat(evaluator.evaluate("32/4"), is(8));
+        assertThat(evaluator.evaluate("32/4"), is(8.0));
     }
 }

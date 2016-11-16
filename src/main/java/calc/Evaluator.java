@@ -15,9 +15,9 @@ public class Evaluator {
         operationSet.add('/');
     }
 
-    public int evaluate(String expression) {
+    public double evaluate(String expression) {
         int index = findIndexOfOperation(expression);
-        int result = parseFirstArgument(expression, index);
+        double result = parseFirstArgument(expression, index);
         if (hasMoreArguments(expression, index)) {
             char sign = expression.charAt(index);
             if (sign == '+') {
@@ -37,8 +37,8 @@ public class Evaluator {
         return index < expression.length();
     }
 
-    private int parseFirstArgument(String expression, int index) {
-        return Integer.parseInt(expression.substring(0, index));
+    private double parseFirstArgument(String expression, int index) {
+        return Double.parseDouble(expression.substring(0, index));
     }
 
     private int findIndexOfOperation(String expression) {
@@ -49,7 +49,7 @@ public class Evaluator {
         return index;
     }
 
-    private int parseNextArgument(String expression, int from) {
-        return Integer.parseInt(expression.substring(from));
+    private double parseNextArgument(String expression, int from) {
+        return Double.parseDouble(expression.substring(from));
     }
 }

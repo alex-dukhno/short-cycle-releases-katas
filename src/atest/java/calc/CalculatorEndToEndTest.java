@@ -71,6 +71,14 @@ public class CalculatorEndToEndTest {
         assertThat(resultOfCalculation(), is("7"));
     }
 
+    @Test
+    public void calculatorEvaluatesExpressionWithFloatingNumbers() throws Exception {
+        enterMathExpression("2.13*2");
+        clickEnterButton();
+
+        assertThat(resultOfCalculation(), is("4.26"));
+    }
+
     private String resultOfCalculation() throws IOException {
         return calcOutput.readLine();
     }

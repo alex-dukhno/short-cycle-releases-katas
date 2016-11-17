@@ -33,7 +33,7 @@ public class Evaluator {
 
     private double parseExpression(Expression exp) {
         double result = parseTerm(exp);
-        while (exp.hasMoreArguments()) {
+        while (exp.hasMoreArguments() && exp.getCurrentChar() != ')') {
             result = operationFunction.get(exp.getCurrentChar()).apply(result, exp);
         }
         return result;
@@ -48,11 +48,18 @@ public class Evaluator {
     }
 
     private double parseArgument(Expression exp) {
-        int start = exp.index;
-        while (exp.hasMoreArguments() && !supportedOperation.contains(exp.getCurrentChar())) {
-            exp.index += 1;
+        if (exp.getCurrentChar() == '(') {
+            double result = parseExpression(exp.incrementIndex());
+            exp.incrementIndex();
+            return result;
         }
-        return Double.parseDouble(exp.src.substring(start, exp.index));
+        else {
+            int start = exp.index;
+            while (exp.hasMoreArguments() && !supportedOperation.contains(exp.getCurrentChar()) && exp.getCurrentChar() != ')') {
+                exp.index += 1;
+            }
+            return Double.parseDouble(exp.src.substring(start, exp.index));
+        }
     };
 
     private static class Expression {

@@ -46,4 +46,9 @@ public class EvaluatorTest {
         assertThat(evaluator.evaluate("32/8+10-6*2+23"), is(25.0));
     }
 
+    @Test
+    public void evaluatesExpressionWithParenthesis() throws Exception {
+        assertThat(evaluator.evaluate("24/(4+2)"), is(4.0));
+    }
+
 }

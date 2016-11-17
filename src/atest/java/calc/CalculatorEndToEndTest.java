@@ -87,6 +87,14 @@ public class CalculatorEndToEndTest {
         assertThat(resultOfCalculation(), is("-4"));
     }
 
+    @Test
+    public void calculatorEvaluatesExpressionWithParenthesis() throws Exception {
+        enterMathExpression("6*(10-(2+3))");
+        clickEnterButton();
+
+        assertThat(resultOfCalculation(), is("30"));
+    }
+
     private String resultOfCalculation() throws IOException {
         return calcOutput.readLine();
     }

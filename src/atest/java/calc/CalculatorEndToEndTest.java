@@ -95,6 +95,14 @@ public class CalculatorEndToEndTest {
         assertThat(resultOfCalculation(), is("30"));
     }
 
+    @Test
+    public void calculatorEvaluatesNumberWithUnderscore() throws Exception {
+        enterMathExpression("10_00_00");
+        clickEnterButton();
+
+        assertThat(resultOfCalculation(), is("100000"));
+    }
+
     private String resultOfCalculation() throws IOException {
         return calcOutput.readLine();
     }

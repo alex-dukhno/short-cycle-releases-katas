@@ -8,15 +8,24 @@ import java.util.function.BiFunction;
 
 public class Evaluator {
 
-    private final Set<Character> supportedOperation;
     private final Map<Character, BiFunction<Double, Expression, Double>> operationFunction;
+    private final Set<Character> numberChars;
 
     public Evaluator() {
-        supportedOperation = new HashSet<>();
-        supportedOperation.add('+');
-        supportedOperation.add('-');
-        supportedOperation.add('*');
-        supportedOperation.add('/');
+        numberChars = new HashSet<>();
+
+        numberChars.add('0');
+        numberChars.add('1');
+        numberChars.add('2');
+        numberChars.add('3');
+        numberChars.add('4');
+        numberChars.add('5');
+        numberChars.add('6');
+        numberChars.add('7');
+        numberChars.add('8');
+        numberChars.add('9');
+        numberChars.add('.');
+        numberChars.add('_');
 
         operationFunction = new HashMap<>();
 
@@ -55,10 +64,10 @@ public class Evaluator {
         }
         else {
             int start = exp.index;
-            while (exp.hasMoreArguments() && !supportedOperation.contains(exp.getCurrentChar()) && exp.getCurrentChar() != ')') {
+            while (exp.hasMoreArguments() && numberChars.contains(exp.getCurrentChar()) && exp.getCurrentChar() != ')') {
                 exp.index += 1;
             }
-            return Double.parseDouble(exp.src.substring(start, exp.index));
+            return Double.parseDouble(exp.src.substring(start, exp.index).replaceAll("_", ""));
         }
     };
 

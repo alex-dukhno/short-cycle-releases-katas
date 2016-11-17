@@ -1,6 +1,7 @@
 package calc;
 
 import org.junit.Before;
+import org.junit.Ignore;
 import org.junit.Test;
 
 import static org.hamcrest.CoreMatchers.is;
@@ -16,9 +17,23 @@ public class EvaluatorTest {
     }
 
     @Test
-    public void evaluatesNumber() throws Exception {
+    public void evaluatesIntegerNumber() throws Exception {
         assertThat(evaluator.evaluate("100"), is(100.0));
+    }
+
+    @Test
+    public void evaluatesFloatPointNumber() throws Exception {
         assertThat(evaluator.evaluate("10.0"), is(10.0));
+    }
+
+    @Test
+    public void evaluatesIntegerNumberWithUnderscore() throws Exception {
+        assertThat(evaluator.evaluate("1_000"), is(1000.0));
+    }
+
+    @Test
+    public void evaluatesFloatNumberWithUnderscores() throws Exception {
+        assertThat(evaluator.evaluate("10_000.000_1"), is(10000.0001));
     }
 
     @Test

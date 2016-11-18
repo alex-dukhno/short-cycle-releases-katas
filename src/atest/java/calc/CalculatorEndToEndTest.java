@@ -103,6 +103,14 @@ public class CalculatorEndToEndTest {
         assertThat(resultOfCalculation(), is("100000"));
     }
 
+    @Test
+    public void calculatorPrintsErrorMessage() throws Exception {
+        enterMathExpression("10+20,0");
+        clickEnterButton();
+
+        assertThat(resultOfCalculation(), is("the number 20,0 in 2 position has an error"));
+    }
+
     private String resultOfCalculation() throws IOException {
         return calcOutput.readLine();
     }

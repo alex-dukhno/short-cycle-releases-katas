@@ -9,23 +9,16 @@ import java.util.function.BiFunction;
 public class Evaluator {
 
     private final Map<Character, BiFunction<Double, Expression, Double>> operationFunction;
-    private final Set<Character> numberChars;
+    private final Set<Character> operators;
+    private int position = 0;
 
     public Evaluator() {
-        numberChars = new HashSet<>();
+        operators = new HashSet<>();
 
-        numberChars.add('0');
-        numberChars.add('1');
-        numberChars.add('2');
-        numberChars.add('3');
-        numberChars.add('4');
-        numberChars.add('5');
-        numberChars.add('6');
-        numberChars.add('7');
-        numberChars.add('8');
-        numberChars.add('9');
-        numberChars.add('.');
-        numberChars.add('_');
+        operators.add('+');
+        operators.add('-');
+        operators.add('*');
+        operators.add('/');
 
         operationFunction = new HashMap<>();
 
@@ -61,15 +54,22 @@ public class Evaluator {
             double result = parseExpression(exp.incrementIndex());
             exp.incrementIndex();
             return result;
-        }
-        else {
+        } else {
+            position += 1;
             int start = exp.index;
-            while (exp.hasMoreArguments() && numberChars.contains(exp.getCurrentChar()) && exp.getCurrentChar() != ')') {
+            while (exp.hasMoreArguments() && !operators.contains(exp.getCurrentChar()) && exp.getCurrentChar() != ')') {
                 exp.index += 1;
             }
-            return Double.parseDouble(exp.src.substring(start, exp.index).replaceAll("_", ""));
+            String number = exp.src.substring(start, exp.index);
+            try {
+                return Double.parseDouble(number.replaceAll("_", ""));
+            } catch (NumberFormatException e) {
+                throw new NumberEvaluationException(
+                        "the number " + number + " in " + position + " position has an error"
+                );
+            }
         }
-    };
+    }
 
     private static class Expression {
         private final String src;
@@ -91,6 +91,12 @@ public class Evaluator {
         Expression incrementIndex() {
             index += 1;
             return this;
+        }
+    }
+
+    static class NumberEvaluationException extends RuntimeException {
+        NumberEvaluationException(String message) {
+            super(message);
         }
     }
 }

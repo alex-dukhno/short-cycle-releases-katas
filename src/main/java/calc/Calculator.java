@@ -25,7 +25,13 @@ public class Calculator {
     public static void main(String[] args) throws Exception {
         Calculator calculator = new Calculator(System.in, System.out);
         Evaluator evaluator = new Evaluator();
-        calculator.printsResult(evaluator.evaluate(calculator.readExpression()));
+        try {
+            double evaluate = evaluator.evaluate(calculator.readExpression());
+            calculator.printsResult(evaluate);
+        }
+        catch (Evaluator.NumberEvaluationException e) {
+            calculator.printMessage(e.getMessage());
+        }
     }
 
     public String readExpression() throws IOException {
@@ -34,6 +40,11 @@ public class Calculator {
 
     public void printsResult(double evaluatedResult) throws IOException {
         out.write(outputFormatter.format(evaluatedResult) + "\n");
+        out.flush();
+    }
+
+    public void printMessage(String message) throws IOException {
+        out.write(message + "\n");
         out.flush();
     }
 }

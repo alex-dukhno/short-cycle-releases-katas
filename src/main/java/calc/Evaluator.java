@@ -36,6 +36,9 @@ public class Evaluator {
     private double parseExpression(Expression exp) {
         double result = parseTerm(exp);
         while (exp.hasMoreArguments() && exp.getCurrentChar() != ')') {
+            if (!operationFunction.containsKey(exp.getCurrentChar())) {
+                throw new NumberEvaluationException("supported operations are ['+', '-', '*', '/']");
+            }
             result = operationFunction.get(exp.getCurrentChar()).apply(result, exp);
         }
         return result;
@@ -50,14 +53,18 @@ public class Evaluator {
     }
 
     private double parseArgument(Expression exp) {
-        if (exp.getCurrentChar() == '(') {
+        if (isSubexpressionStarted(exp)) {
             double result = parseExpression(exp.incrementIndex());
             exp.incrementIndex();
             return result;
         } else {
             position += 1;
             int start = exp.index;
-            while (exp.hasMoreArguments() && !operators.contains(exp.getCurrentChar()) && exp.getCurrentChar() != ')') {
+            char currentChar = exp.getCurrentChar();
+            if (position == 1 && currentChar == '-') {
+                exp.index += 1;
+            }
+            while (exp.hasMoreArguments() && exp.getCurrentChar() != ')' && !isOperator(exp.getCurrentChar()) && (Character.isDigit(exp.getCurrentChar()) || exp.getCurrentChar() == '_' || exp.getCurrentChar() == '.' || exp.getCurrentChar() == ',')) {
                 exp.index += 1;
             }
             String number = exp.src.substring(start, exp.index);
@@ -69,6 +76,14 @@ public class Evaluator {
                 );
             }
         }
+    }
+
+    private boolean isOperator(char currentChar) {
+        return operators.contains(currentChar);
+    }
+
+    private boolean isSubexpressionStarted(Expression exp) {
+        return exp.getCurrentChar() == '(';
     }
 
     private static class Expression {

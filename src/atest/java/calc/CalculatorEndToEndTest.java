@@ -111,6 +111,22 @@ public class CalculatorEndToEndTest {
         assertThat(resultOfCalculation(), is("the number 20,0 in 2 position has an error"));
     }
 
+    @Test
+    public void calculatorEvaluatesNegativeNumber() throws Exception {
+        enterMathExpression("-10");
+        clickEnterButton();
+
+        assertThat(resultOfCalculation(), is("-10"));
+    }
+
+    @Test
+    public void calculatorCanNotCompareTwoNumbers() throws Exception {
+        enterMathExpression("10>5");
+        clickEnterButton();
+
+        assertThat(resultOfCalculation(), is("supported operations are ['+', '-', '*', '/']"));
+    }
+
     private String resultOfCalculation() throws IOException {
         return calcOutput.readLine();
     }

@@ -75,7 +75,7 @@ public class EvaluatorTest {
         assertThat(evaluator.evaluate("-9"), is(-9.0));
     }
 
-    public class ExceptionalNumberEvaluation {
+    public class ExceptionalExpressionEvaluation {
 
         @Rule
         public ExpectedException thrown = ExpectedException.none();
@@ -99,6 +99,11 @@ public class EvaluatorTest {
         @Test
         public void expressionEvaluation_throwsException() throws Exception {
             evaluateExpression("1+20,0", "the number 20,0 in 2 position has an error");
+        }
+
+        @Test
+        public void comparision_throwsException() throws Exception {
+            evaluateExpression("10<100", "supported operations are ['+', '-', '*', '/']");
         }
     }
 

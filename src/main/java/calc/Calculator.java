@@ -26,10 +26,8 @@ public class Calculator {
         Calculator calculator = new Calculator(System.in, System.out);
         Evaluator evaluator = new Evaluator();
         try {
-            double evaluate = evaluator.evaluate(calculator.readExpression());
-            calculator.printsResult(evaluate);
-        }
-        catch (Evaluator.NumberEvaluationException e) {
+            calculator.printsResult(evaluator.evaluate(calculator.readExpression()));
+        } catch (Evaluator.NumberEvaluationException e) {
             calculator.printMessage(e.getMessage());
         }
     }

@@ -70,6 +70,11 @@ public class EvaluatorTest {
         assertThat(evaluator.evaluate("24/(4+2)"), is(4.0));
     }
 
+    @Test
+    public void evaluatesNegativeNumber() throws Exception {
+        assertThat(evaluator.evaluate("-9"), is(-9.0));
+    }
+
     public class ExceptionalNumberEvaluation {
 
         @Rule

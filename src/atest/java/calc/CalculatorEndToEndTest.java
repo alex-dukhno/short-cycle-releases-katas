@@ -111,6 +111,14 @@ public class CalculatorEndToEndTest {
         assertThat(resultOfCalculation(), is("the number 20,0 in 2 position has an error"));
     }
 
+    @Test
+    public void calculatorEvaluatesNegativeNumber() throws Exception {
+        enterMathExpression("-10");
+        clickEnterButton();
+
+        assertThat(resultOfCalculation(), is("-10"));
+    }
+
     private String resultOfCalculation() throws IOException {
         return calcOutput.readLine();
     }

@@ -57,6 +57,9 @@ public class Evaluator {
         } else {
             position += 1;
             int start = exp.index;
+            if (position == 1 && exp.getCurrentChar() == '-') {
+                exp.index += 1;
+            }
             while (exp.hasMoreArguments() && !operators.contains(exp.getCurrentChar()) && exp.getCurrentChar() != ')') {
                 exp.index += 1;
             }

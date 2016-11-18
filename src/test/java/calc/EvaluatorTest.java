@@ -1,12 +1,16 @@
 package calc;
 
+import de.bechte.junit.runners.context.HierarchicalContextRunner;
 import org.junit.Before;
-import org.junit.Ignore;
+import org.junit.Rule;
 import org.junit.Test;
+import org.junit.rules.ExpectedException;
+import org.junit.runner.RunWith;
 
 import static org.hamcrest.CoreMatchers.is;
 import static org.hamcrest.MatcherAssert.assertThat;
 
+@RunWith(HierarchicalContextRunner.class)
 public class EvaluatorTest {
 
     private Evaluator evaluator;
@@ -64,6 +68,33 @@ public class EvaluatorTest {
     @Test
     public void evaluatesExpressionWithParenthesis() throws Exception {
         assertThat(evaluator.evaluate("24/(4+2)"), is(4.0));
+    }
+
+    public class ExceptionalNumberEvaluation {
+
+        @Rule
+        public ExpectedException thrown = ExpectedException.none();
+
+        @Test
+        public void evaluate_20_comma_0_throwsException() throws Exception {
+            evaluateExpression("20,0", "the number 20,0 in 1 position has an error");
+        }
+
+        @Test
+        public void evaluate_10_comma_0_throwsException() throws Exception {
+            evaluateExpression("10,0", "the number 10,0 in 1 position has an error");
+        }
+
+        private void evaluateExpression(String expression, String expectedMessage) {
+            thrown.expect(Evaluator.NumberEvaluationException.class);
+            thrown.expectMessage(is(expectedMessage));
+            evaluator.evaluate(expression);
+        }
+
+        @Test
+        public void expressionEvaluation_throwsException() throws Exception {
+            evaluateExpression("1+20,0", "the number 20,0 in 2 position has an error");
+        }
     }
 
 }

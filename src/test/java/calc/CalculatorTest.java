@@ -74,4 +74,12 @@ public class CalculatorTest {
 
         assertThat(reader.readLine(), is("1.0000000000000002"));
     }
+
+    @Test
+    public void calculatorPrintsMessageToUser() throws Exception {
+        BufferedReader reader = new BufferedReader(new InputStreamReader(in));
+        calculator.printMessage("Error");
+
+        assertThat(reader.readLine(), is("Error"));
+    }
 }

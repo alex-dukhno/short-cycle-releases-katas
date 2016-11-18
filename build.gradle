@@ -48,6 +48,7 @@ repositories {
 
 dependencies {
     testCompile "junit:junit:4.12"
+    testCompile "de.bechte.junit:junit-hierarchicalcontextrunner:4.12.1"
 }
 
 configurations {
